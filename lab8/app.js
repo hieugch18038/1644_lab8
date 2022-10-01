@@ -8,8 +8,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 const studentModel = require("./models/StudentSchema");
 //url connection string db
-const url = "mongodb://localhost:27017/greenwich";
-//const url = "mongodb+srv://admin:admin@cluster0.nrru4jv.mongodb.net/greenwich"
+//const url = "mongodb://localhost:27017/greenwich";
+const url = "mongodb+srv://admin:admin@cluster0.nrru4jv.mongodb.net/greenwich"
 mongoose.connect(url, { useNewUrlParser: true }, (err) => {
   if (err) {
     console.log(err);
