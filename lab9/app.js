@@ -4,10 +4,21 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter = require("./routes/index");
+var mobileRouter = require("./routes/mobile.js")
+var laptopRouter = require("./routes/laptop.js")
+
 
 var app = express();
+//cấu hình mongoose (database)
+var mongoose = require("mongoose");
+var db = "mongodb://localhost:27017/greenwich";
+//const url = "mongodb+srv://admin:admin@cluster0.nrru4jv.mongodb.net/greenwich"
+mongoose.connect(db, { useNewUrlParser: true });
+
+//cấu hình body-parser (form input)
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,7 +31,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//sử dụng router
+app.use("/mobile", mobileRouter);
+app.use("/laptop", laptopRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -36,6 +49,12 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+var port = process.env.PORT || 3000;
+
+app.listen (port, () => {
+  console.log("Server is running http:/localhost:3000");
 });
 
 module.exports = app;
