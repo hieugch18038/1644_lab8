@@ -8,8 +8,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 const studentModel = require("./models/StudentSchema");
 //url connection string db
-//const url = "mongodb://localhost:27017/greenwich";
-const url = "mongodb+srv://admin:admin@cluster0.nrru4jv.mongodb.net/greenwich"
+const url = "mongodb://localhost:27017/greenwich";
+//const url = "mongodb+srv://admin:admin@cluster0.nrru4jv.mongodb.net/greenwich"
 mongoose.connect(url, { useNewUrlParser: true }, (err) => {
   if (err) {
     console.log(err);
@@ -34,12 +34,14 @@ app.post("/add", (req, res) => {
     //res.render("output", { student: req.body });
   
     //tạo object student chứa dữ liệu nhập từ form
-    var student = new studentModel({
+    /*var student = new studentModel({
       name: req.body.name,
       age: req.body.age,
       email: req.body.email,
       image: req.body.image,
-    });
+      address: req.body.address,
+    });*/
+    var student = new studentModel(req.body);
     //lưu object student vào database
     student.save((err) => {
       if (err) {
