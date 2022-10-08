@@ -8,6 +8,8 @@ var MobileSchema = schema(
         brand: String,
         image: String,
         price: Number,
+    },{
+        versionKey: false
     }
 )
 var MobileModel = mongoose.model("dien thoai", MobileSchema, "mobile");
